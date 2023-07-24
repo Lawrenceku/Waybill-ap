@@ -22,10 +22,10 @@ var hover = "hover: bg-blue-600"
             })}
   const popupFailure =()=>{
           setswalprops({
-                  icon: 'info',
+                  icon: 'warning',
                   show: true,
                   title: 'Failed',
-                  text: 'Waybill reversed!',
+                  text: 'Waybill unsuccessful!',
           })} 
           complete==true ? popupSuccess() : popupFailure()
  }
