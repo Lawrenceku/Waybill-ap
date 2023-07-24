@@ -6,9 +6,9 @@ const PriceDisplay = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const appId = '8142409';
-        const appSecret = 'XWLTK53ZYVVNRBHVUW294PSJJ6X9QYTK';
-        const url = 'https://sandbox.sendstack.africa/api/v1/deliveries/price';
+        const appId =  process.env.API_APP_ID;
+        const appSecret = process.env.API_APP_SECRET;
+        const url = 'https://sendstack.africa/api/v1/deliveries/price';
 
         const response = await fetch(url, {
           headers: {
