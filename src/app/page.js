@@ -2,11 +2,9 @@
 import { useState, useEffect} from "react";
 import PriceDisplay from "../../Components/pricedisplay";
 import SweetAlert2 from 'react-sweetalert2';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import DurationSelector from "../../Components/durationSelector";
+import LocationDropdownPickup from "../../Components/locationDropdown-pickup";
+import LocationDropdownDelivery from "../../Components/locationDropdown-delivery";
 
 
 export default function Home() {
@@ -29,33 +27,8 @@ var hover = "hover: bg-blue-600"
                   title: 'Failed',
                   text: 'Waybill reversed!',
           })} 
-          complete==true ? popupSuccess : popupFailure
+          complete==true ? popupSuccess() : popupFailure()
  }
-
- const [locations, setLocations] = useState([]);
- const [selectedLocation, setSelectedLocation] = useState('');
-
- useEffect(() => {
-   const appId = '8142409';
-   const appSecret = 'XWLTK53ZYVVNRBHVUW294PSJJ6X9QYTK';
-   const apiUrl = 'https://gps-naija.onrender.com/states/lagos'
-   //'https://sandbox.sendstack.africa/api/v1/locations';
-
-   // Fetch locations data from the API with authentication headers
-   fetch(apiUrl)
-     .then((response) => response.json())
-     .then((data) => {
-       
-       setLocations(data);
-     })
-     .catch((error) => {
-       console.error('Error fetching locations:', error);
-     });
- }, []);
-
- const handleChange = (event) => {
-   setSelectedLocation(event.target.value);
- };
 
   return (
    <>
@@ -69,40 +42,14 @@ var hover = "hover: bg-blue-600"
       </div>
       <div className='  h-60 m-4 rounded flex flex-col justify-center itmes-center'>
       <div className="mt-40 ">
-      <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Pickup Location</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={selectedLocation}
-        label="Pickup Location"
-        onChange={handleChange}
-      >
-        {locations.map((location) => (
-          <MenuItem key={location.id} value={location.name}>
-            {location.name}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+
+      <LocationDropdownPickup></LocationDropdownPickup>
+
         </div>      
         <div className="my-20">
-        <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Drop-off Location </InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={selectedLocation}
-        label="Pickup Location"
-        onChange={handleChange}
-      >
-        {locations.map((location) => (
-          <MenuItem key={location.id} value={location.name}>
-            {location.name}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+
+       <LocationDropdownDelivery></LocationDropdownDelivery>
+
         </div>
         <DurationSelector></DurationSelector>     
         </div>
