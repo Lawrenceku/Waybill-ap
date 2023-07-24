@@ -8,13 +8,14 @@ import MenuItem from '@mui/material/MenuItem';
   
  const [locations, setLocations] = useState([]);
  const [selectedLocation, setSelectedLocation] = useState('');
+ const [error, setError] = useState(null);
 
  useEffect(() => {
    const appId = '8142409';
    const appSecret = 'XWLTK53ZYVVNRBHVUW294PSJJ6X9QYTK';
-   const apiUrl = 'https://sandbox.sendstack.africa/api/v1/locations'
+   const apiUrl = 'https://sandbox.sendstack.africa/api/v1/locations';
 
-   // Fetchin locations data from the API with authentication headers
+   // Fetch locations data from the API with authentication headers
    fetch(apiUrl, {
      headers: {
        'Content-Type': 'application/json',
@@ -22,12 +23,17 @@ import MenuItem from '@mui/material/MenuItem';
        'X-App-Secret': appSecret,
      },
    })
-     .then((response) => response.json())
+     .then((response) => {
+       if (!response.ok) {
+         throw new Error('API request failed');
+       }
+       return response.json();
+     })
      .then((data) => {
-       
        setLocations(data);
      })
      .catch((error) => {
+       setError('Error fetching locations. Please try again later.');
        console.error('Error fetching locations:', error);
      });
  }, []);
