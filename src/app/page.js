@@ -6,6 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import DurationSelector from "../../Components/durationSelector";
 
 
 export default function Home() {
@@ -37,16 +38,11 @@ var hover = "hover: bg-blue-600"
  useEffect(() => {
    const appId = '8142409';
    const appSecret = 'XWLTK53ZYVVNRBHVUW294PSJJ6X9QYTK';
-   const apiUrl = 'https://sandbox.sendstack.africa/api/v1/locations';
+   const apiUrl = 'https://gps-naija.onrender.com/states/lagos'
+   //'https://sandbox.sendstack.africa/api/v1/locations';
 
    // Fetch locations data from the API with authentication headers
-   fetch(apiUrl, {
-     headers: {
-       'Content-Type': 'application/json',
-       'X-App-ID': appId,
-       'X-App-Secret': appSecret,
-     },
-   })
+   fetch(apiUrl)
      .then((response) => response.json())
      .then((data) => {
        
@@ -108,25 +104,13 @@ var hover = "hover: bg-blue-600"
       </Select>
     </FormControl>
         </div>
-        <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Pickup Date</InputLabel>
-              <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={10}
-              label="Pickup Date"
-              onChange={handleChange}>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl>       
+        <DurationSelector></DurationSelector>     
         </div>
       <div className="mt-60 flex items-center justify-center">
         <PriceDisplay className="shadow-sm text-center  w-full p-12"></PriceDisplay>
       </div>
       <div className='flex absolute bottom-0 w-full justify-center items-center'>
-        <button className='text-slate-100 bg-gray-500 `${hover}` rounded-full text-lg py-3 px-32'>Confirm</button>
+        <button onClick={popup} className='text-slate-100 bg-gray-500 hover:bg-blue-700 rounded-full text-lg py-3 px-32'>Confirm</button>
       </div>
    </div>
    </>
