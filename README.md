@@ -1,0 +1,1 @@
+This is an assessment for Sendstack's FE develoer position
